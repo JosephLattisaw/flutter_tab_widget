@@ -30,24 +30,6 @@ class MyHomePage extends HookWidget {
   final String? title;
   final _tabWidgetPadding = const EdgeInsets.all(DEFAULT_PADDING);
 
-  List<Widget> getTabs(int count) {
-    List<Widget> tabs = [];
-    for (var i = 0; i < count; i++) {
-      tabs.add(Tab(text: "Tab ${i + 1}"));
-    }
-
-    return tabs;
-  }
-
-  List<Widget> getTabWidgets(int count) {
-    List<Widget> widgets = [];
-    for (var i = 0; i < count; i++) {
-      widgets.add(Center(child: Text("Tab ${i + 1}")));
-    }
-
-    return widgets;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +40,11 @@ class MyHomePage extends HookWidget {
         child: Padding(
           padding: _tabWidgetPadding,
           child: tab_widget.TabWidget(
-              tabs: getTabs(totalTabs), tabWidgets: getTabWidgets(totalTabs)),
+            tabs: List<Widget>.generate(
+                totalTabs, (index) => Tab(text: "Tab ${index + 1}")),
+            tabWidgets: List<Widget>.generate(
+                totalTabs, (index) => Center(child: Text("Tab ${index + 1}"))),
+          ),
         ),
       ),
     );
