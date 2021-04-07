@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Tab Widget'),
     );
   }
 }
@@ -23,17 +23,43 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends HookWidget {
   MyHomePage({Key? key, this.title}) : super(key: key);
 
+  static const String DEFAULT_TITLE = "";
+  static const double DEFAULT_PADDING = 8.0;
+  static const int totalTabs = 3;
+
   final String? title;
-  static const String defaultTitle = "";
+  final _tabWidgetPadding = const EdgeInsets.all(DEFAULT_PADDING);
+
+  List<Widget> getTabs(int count) {
+    List<Widget> tabs = [];
+    for (var i = 0; i < count; i++) {
+      tabs.add(Tab(text: "Tab ${i + 1}"));
+    }
+
+    return tabs;
+  }
+
+  List<Widget> getTabWidgets(int count) {
+    List<Widget> widgets = [];
+    for (var i = 0; i < count; i++) {
+      widgets.add(Center(child: Text("Tab ${i + 1}")));
+    }
+
+    return widgets;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.title ?? defaultTitle),
+        title: Text(this.title ?? DEFAULT_TITLE),
       ),
       body: Center(
-        child: tab_widget.TabWidget(),
+        child: Padding(
+          padding: _tabWidgetPadding,
+          child: tab_widget.TabWidget(
+              tabs: getTabs(totalTabs), tabWidgets: getTabWidgets(totalTabs)),
+        ),
       ),
     );
   }
