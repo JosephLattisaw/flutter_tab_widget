@@ -8,7 +8,7 @@ class TabWidget extends HookWidget {
     Key? key,
     required this.tabs,
     required this.tabWidgets,
-    this.containerHeight = 45,
+    this.containerHeight = TabWidget.DEFAULT_CONTAINER_HEIGHT,
   }) : super(key: key) {
     assert(this.tabs.length == this.tabWidgets.length);
   }
@@ -18,6 +18,7 @@ class TabWidget extends HookWidget {
   final double containerHeight;
 
   static const double DEFAULT_BORDER_RADIUS = 10.0;
+  static const double DEFAULT_CONTAINER_HEIGHT = 45;
   static const DEFAULT_PADDING = const EdgeInsets.all(0.0);
 
   @override
@@ -37,12 +38,10 @@ class TabWidget extends HookWidget {
       child: Column(
         children: [
           Container(
-            height: 45,
+            height: containerHeight,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(DEFAULT_BORDER_RADIUS),
             ),
             child: TabBar(
               controller: tabController,
